@@ -17,15 +17,22 @@ jobs:
         working-directory: app
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+
       - name: Fix paths for GitHub Pages subfolder
         run: |
           sed -i 's/BrowserRouter/HashRouter/g' src/main.tsx
-          grep -rlE '/characters/' src index.html | xargs sed -i -E "s#([\"'\`])/characters/#\1./characters/#g"
-            - run: npm install --no-audit --no-fund
-      - run: node node_modules/vite/bin/vite.js build
+          grep -rl '/characters/' src index.html | xargs sed -i 's#"/characters/#"./characters/#g; s#`/characters/#`./characters/#g'
+
+      - name: Install
+        run: npm install --no-audit --no-fund
+
+      - name: Build
+        run: node node_modules/vite/bin/vite.js build
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: app/dist
