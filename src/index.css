@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    font-family: 'Baloo 2', 'Comic Sans MS', ui-rounded, system-ui, sans-serif;
+    overscroll-behavior-y: none;
+  }
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}
+
+.font-display {
+  font-family: 'Baloo 2', 'Comic Sans MS', ui-rounded, system-ui, sans-serif;
+}
+
+/* Учитываем безопасные зоны на мобильных */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ---------- Анимации для «кинематографичного» интерфейса ---------- */
+
+/* Живой, медленно переливающийся градиентный фон */
+@keyframes bg-pan {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+.bg-animated-gradient {
+  background-size: 220% 220%;
+  animation: bg-pan 18s ease-in-out infinite;
+}
+
+/* Переливающийся градиентный текст (заголовки) */
+@keyframes text-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+.text-shimmer {
+  background-size: 200% auto;
+  animation: text-shimmer 4s linear infinite;
+}
+
+/* Бегущий блик на кнопках при наведении */
+@keyframes shine-sweep {
+  from {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  to {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+.group:hover .shine-sweep-el {
+  animation: shine-sweep 1s ease forwards;
+}
+
+/* Мягкое дышащее свечение для главной кнопки */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(251, 146, 60, 0);
+  }
+}
+.animate-glow-pulse {
+  animation: glow-pulse 2.4s ease-out infinite;
+}
